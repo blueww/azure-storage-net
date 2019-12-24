@@ -313,7 +313,7 @@ namespace Microsoft.Azure.Storage.Queue
                 Assert.AreEqual(ex.RequestInformation.HttpStatusCode, (int)HttpStatusCode.BadRequest);
                 TestHelper.AssertNAttempts(ctx, 1);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Assert.Fail();
             }

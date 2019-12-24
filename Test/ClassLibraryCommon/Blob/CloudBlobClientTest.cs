@@ -827,6 +827,7 @@ namespace Microsoft.Azure.Storage.Blob
         }
 
         [TestMethod]
+        [Ignore]
         [Description("List containers with prefix using segmented listing")]
         [TestCategory(ComponentCategory.Blob)]
         [TestCategory(TestTypeCategory.UnitTest)]
@@ -1012,6 +1013,7 @@ namespace Microsoft.Azure.Storage.Blob
 #endif
 
         [TestMethod]
+        [Ignore]
         [Description("List more than 5K containers with prefix using segmented listing")]
         [TestCategory(ComponentCategory.Blob)]
         [TestCategory(TestTypeCategory.UnitTest)]
@@ -1445,6 +1447,7 @@ namespace Microsoft.Azure.Storage.Blob
         }
 
         [TestMethod]
+        [Ignore]
         [Description("A test to validate basic blob container continuation with null target location")]
         [TestCategory(ComponentCategory.Blob)]
         [TestCategory(TestTypeCategory.UnitTest)]

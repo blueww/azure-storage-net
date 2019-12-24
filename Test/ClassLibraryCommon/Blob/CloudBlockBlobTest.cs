@@ -4598,14 +4598,17 @@ namespace Microsoft.Azure.Storage.Blob
                 Assert.AreEqual("0123456789", DownloadText(blob, Encoding.UTF8));
 
                 blockIds.RemoveAt(0);
+                blob.FetchAttributes();
                 blob.PutBlockList(blockIds);
                 Assert.AreEqual("123456789", DownloadText(blob, Encoding.UTF8));
 
                 blockIds.RemoveAt(8);
+                blob.FetchAttributes();
                 blob.PutBlockList(blockIds);
                 Assert.AreEqual("12345678", DownloadText(blob, Encoding.UTF8));
 
                 blockIds.RemoveAt(3);
+                blob.FetchAttributes();
                 blob.PutBlockList(blockIds);
                 Assert.AreEqual("1235678", DownloadText(blob, Encoding.UTF8));
 
@@ -4614,6 +4617,7 @@ namespace Microsoft.Azure.Storage.Blob
                     blob.PutBlock(originalBlockIds[9], stream, null);
                 }
                 blockIds.Insert(0, originalBlockIds[9]);
+                blob.FetchAttributes();
                 blob.PutBlockList(blockIds);
                 Assert.AreEqual("91235678", DownloadText(blob, Encoding.UTF8));
 
@@ -4622,6 +4626,7 @@ namespace Microsoft.Azure.Storage.Blob
                     blob.PutBlock(originalBlockIds[0], stream, null);
                 }
                 blockIds.Add(originalBlockIds[0]);
+                blob.FetchAttributes();
                 blob.PutBlockList(blockIds);
                 Assert.AreEqual("912356780", DownloadText(blob, Encoding.UTF8));
 
@@ -4630,10 +4635,12 @@ namespace Microsoft.Azure.Storage.Blob
                     blob.PutBlock(originalBlockIds[4], stream, null);
                 }
                 blockIds.Insert(2, originalBlockIds[4]);
+                blob.FetchAttributes();
                 blob.PutBlockList(blockIds);
                 Assert.AreEqual("9142356780", DownloadText(blob, Encoding.UTF8));
 
                 blockIds.Insert(0, originalBlockIds[0]);
+                blob.FetchAttributes();
                 blob.PutBlockList(blockIds);
                 Assert.AreEqual("09142356780", DownloadText(blob, Encoding.UTF8));
             }

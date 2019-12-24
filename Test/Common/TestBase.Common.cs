@@ -300,14 +300,18 @@ namespace Microsoft.Azure.Storage
 
         private static void Initialize(TestConfigurations configurations)
         {
-            TestBase.TargetTenantConfig = configurations.TenantConfigurations.Single(config => config.TenantName == configurations.TargetTenantName);
-            TestBase.TargetOauthTenantConfig = configurations.TenantConfigurations.Single(config => config.TenantName == configurations.TargetOauthTenantName);
-            TestBase.StorageCredentials = new StorageCredentials(TestBase.TargetTenantConfig.AccountName, TestBase.TargetTenantConfig.AccountKey);
-            TestBase.OauthStorageCredentials = new StorageCredentials(TestBase.TargetOauthTenantConfig.AccountName, TestBase.TargetOauthTenantConfig.AccountKey);
-            TestBase.CurrentTenantType = TargetTenantConfig.TenantType;
+            TestBase.TargetTenantConfig = configurations.TenantConfigurations.First();
+           // TestBase.StorageCredentials = new StorageCredentials(TestBase.TargetTenantConfig.AccountName, TestBase.TargetTenantConfig.AccountKey);
+            TestBase.StorageCredentials = new StorageCredentials(configurations.TenantConfigurations.First().AccountName,
+                configurations.TenantConfigurations.First().AccountKey);
 
             try
             {
+                TestBase.TargetTenantConfig = configurations.TenantConfigurations.Single(config => config.TenantName == configurations.TargetTenantName);
+                TestBase.TargetOauthTenantConfig = configurations.TenantConfigurations.Single(config => config.TenantName == configurations.TargetOauthTenantName);
+                TestBase.OauthStorageCredentials = new StorageCredentials(TestBase.TargetOauthTenantConfig.AccountName, TestBase.TargetOauthTenantConfig.AccountKey);
+                TestBase.CurrentTenantType = TargetTenantConfig.TenantType;
+
                 TestBase.PremiumBlobTenantConfig = configurations.TenantConfigurations.Single(config => config.TenantName == configurations.TargetPremiumBlobTenantName);
                 TestBase.PremiumBlobStorageCredentials = new StorageCredentials(TestBase.PremiumBlobTenantConfig.AccountName, TestBase.PremiumBlobTenantConfig.AccountKey);
             }

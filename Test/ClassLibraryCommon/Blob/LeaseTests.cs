@@ -4348,19 +4348,24 @@ namespace Microsoft.Azure.Storage.Blob
         {
             using (AutoResetEvent waitHandle = new AutoResetEvent(false))
             {
+                testBlob.FetchAttributes();
                 IAsyncResult result = testBlob.BeginSetMetadata(testAccessCondition, null /* options */, null /* operationContext */, ar => waitHandle.Set(), null);
                 waitHandle.WaitOne();
                 testBlob.EndSetMetadata(result);
 
+                testBlob.FetchAttributes();
                 result = testBlob.BeginSetProperties(testAccessCondition, null /* options */, null /* operationContext */, ar => waitHandle.Set(), null);
                 waitHandle.WaitOne();
                 testBlob.EndSetProperties(result);
 
+                testBlob.FetchAttributes();
                 UploadTextAPM(testBlob, "No Problem", Encoding.UTF8, testAccessCondition, null /* options */);
+                testBlob.FetchAttributes();
                 result = testBlob.BeginStartCopy(TestHelper.Defiddler(sourceBlob.Uri), null /* source access condition */, testAccessCondition, null /* options */, null /* operationContext */, ar => waitHandle.Set(), null);
                 waitHandle.WaitOne();
                 testBlob.EndStartCopy(result);
 
+                testBlob.FetchAttributes();
                 while (testBlob.CopyState.Status == CopyStatus.Pending)
                 {
                     Thread.Sleep(1000);
@@ -4369,6 +4374,7 @@ namespace Microsoft.Azure.Storage.Blob
                     testBlob.EndFetchAttributes(result);
                 }
 
+                testBlob.FetchAttributes();
                 result = testBlob.BeginOpenWrite(testAccessCondition, null /* options */, null /* operationContext */, ar => waitHandle.Set(), null);
                 waitHandle.WaitOne();
                 Stream stream = testBlob.EndOpenWrite(result);
